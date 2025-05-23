@@ -1,5 +1,7 @@
 // api/actresses.ts
+import { data } from "react-router-dom";
 import type { Actress, Nationality } from "./types";
+
 
 export async function getActress(id: number): Promise<Actress | null> {
   try {
@@ -11,6 +13,7 @@ export async function getActress(id: number): Promise<Actress | null> {
     return null;
   }
 }
+
 
 function isActress(data: any): data is Actress {
   const nationalities: Nationality[] = [
@@ -42,4 +45,10 @@ function isActress(data: any): data is Actress {
     typeof data.nationality === "string" &&
     nationalities.includes(data.nationality as Nationality)
   );
+}
+
+
+export async function getActresses(ids: number[]): Promise<(Actress | null)[]> {
+  const promises = ids.map(id => getActress(id));
+  return Promise.all(promises);
 }
