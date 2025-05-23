@@ -7,7 +7,6 @@ export type Person = {
   image: string;
 };
 
-
 const validNationalities = [
   "American",
   "British",
